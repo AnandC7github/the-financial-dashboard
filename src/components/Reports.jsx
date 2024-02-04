@@ -1,5 +1,6 @@
 // src/components/Reports.jsx
 import React, { useEffect, useState } from 'react';
+import Chart from 'chart.js/auto';
 
 const Reports = () => {
   const [reportData, setReportData] = useState(null);
@@ -13,6 +14,30 @@ const Reports = () => {
         const response = await fetch('https://api.example.com/reports');
         const data = await response.json();
         setReportData(data);
+
+        // Initialize chart after data is fetched
+        const ctx = document.getElementById('reportChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.months,
+            datasets: [{
+              label: 'Revenue',
+              data: data.revenue,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1,
+              fill: false
+            }]
+          },
+          options: {
+            scales: {
+              x: {
+                type: 'linear',
+                position: 'bottom'
+              }
+            }
+          }
+        });
       } catch (error) {
         console.error('Error fetching report data', error);
       }
@@ -26,7 +51,7 @@ const Reports = () => {
       <h2>Reports Section</h2>
       {reportData ? (
         <div>
-          <p>Total Reports: {reportData.totalReports}</p>
+          <canvas id="reportChart" width="400" height="200"></canvas>
           {/* Add more report-related content using reportData */}
         </div>
       ) : (
