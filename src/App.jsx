@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [selectedSection, setSelectedSection] = useState('budget');
+
+  const handleSectionChange = (section) => {
+    setSelectedSection(section);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <div className="sidebar">
+        <ul>
+          <li onClick={() => handleSectionChange('budget')}>Budget</li>
+          <li onClick={() => handleSectionChange('investments')}>Investments</li>
+          <li onClick={() => handleSectionChange('reports')}>Reports</li>
+          <li onClick={() => handleSectionChange('alerts')}>Alerts</li>
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="content">
+        <h1>Financial Dashboard</h1>
+        <p>Selected Section: {selectedSection}</p>
+        {/* Add content for each section here */}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
