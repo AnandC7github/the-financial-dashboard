@@ -1,11 +1,31 @@
+// src/App.jsx
 import React, { useState } from 'react';
 import './App.css';
+import Budget from './components/Budget';
+import Investments from './components/Investments';
+import Reports from './components/Reports';
+import Alerts from './components/Alerts';
 
 const App = () => {
   const [selectedSection, setSelectedSection] = useState('budget');
 
   const handleSectionChange = (section) => {
     setSelectedSection(section);
+  };
+
+  const renderSection = () => {
+    switch (selectedSection) {
+      case 'budget':
+        return <Budget />;
+      case 'investments':
+        return <Investments />;
+      case 'reports':
+        return <Reports />;
+      case 'alerts':
+        return <Alerts />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -20,8 +40,7 @@ const App = () => {
       </div>
       <div className="content">
         <h1>Financial Dashboard</h1>
-        <p>Selected Section: {selectedSection}</p>
-        {/* Add content for each section here */}
+        {renderSection()}
       </div>
     </div>
   );
